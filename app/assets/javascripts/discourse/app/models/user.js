@@ -962,20 +962,21 @@ const User = RestModel.extend({
   },
 
   resolvedTimezone(currentUser) {
-    if (this.hasSavedTimezone()) {
-      return this._timezone;
-    }
-
-    // only change the timezone and save it if we are
-    // looking at our own user
-    if (currentUser.id === this.id) {
-      this.changeTimezone(moment.tz.guess());
-      ajax(userPath(this.username + ".json"), {
-        type: "PUT",
-        dataType: "json",
-        data: { timezone: this._timezone },
-      });
-    }
+    // if (this.hasSavedTimezone()) {
+    //   return this._timezone;
+    // }
+    //
+    // // only change the timezone and save it if we are
+    // // looking at our own user
+    // if (currentUser.id === this.id) {
+    //   this.changeTimezone(moment.tz.guess());
+    //   console.log("Going to put user timezone");
+    //   ajax(userPath(this.username + ".json"), {
+    //     type: "PUT",
+    //     dataType: "json",
+    //     data: { timezone: this._timezone },
+    //   });
+    // }
 
     return this._timezone;
   },
