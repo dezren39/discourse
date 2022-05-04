@@ -1041,17 +1041,6 @@ const User = RestModel.extend({
 });
 
 User.reopenClass(Singleton, {
-  munge(json) {
-    // timezone should not be directly accessed, use
-    // resolvedTimezone() and changeTimezone(tz)
-    if (!json._timezone) {
-      json._timezone = json.timezone;
-      delete json.timezone;
-    }
-
-    return json;
-  },
-
   // Find a `User` for a given username.
   findByUsername(username, options) {
     const user = User.create({ username });
@@ -1072,7 +1061,6 @@ User.reopenClass(Singleton, {
     }
 
     if (userJson) {
-      userJson = User.munge(userJson);
       const store = getOwner(this).lookup("service:store");
       return store.createRecord("user", userJson);
     }
